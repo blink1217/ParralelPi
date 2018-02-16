@@ -1,0 +1,6 @@
+\\WIN-JP0RJTL8BVC\Users$\Kevin\Desktop\ComputePi_CSharp\bin\Debug\ComputePi.exe.config
+\\WIN-JP0RJTL8BVC\Users$\Kevin\Desktop\ComputePi_CSharp\bin\Debug\ComputePi.exe
+\\WIN-JP0RJTL8BVC\Users$\Kevin\Desktop\ComputePi_CSharp\bin\Debug\ComputePi.pdb
+\\WIN-JP0RJTL8BVC\Users$\Kevin\Desktop\ComputePi_CSharp\obj\Debug\ComputePi_CSharp.csproj.CoreCompileInputs.cache
+\\WIN-JP0RJTL8BVC\Users$\Kevin\Desktop\ComputePi_CSharp\obj\Debug\ComputePi.exe
+\\WIN-JP0RJTL8BVC\Users$\Kevin\Desktop\ComputePi_CSharp\obj\Debug\ComputePi.pdb
