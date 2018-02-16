@@ -8,13 +8,14 @@
 
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
 class Program
 {
-    const int num_steps = 100000000;
+    const int num_steps = 999999999;
 
     /// <summary>Main method to time various implementations of computing PI.</summary>
     static void Main(string[] args)
@@ -26,6 +27,7 @@ class Program
             Time(() => SerialPi());
             Time(() => ParallelPi());
             Time(() => ParallelPartitionerPi());
+            Time(() => ParrallelList());
 
             Console.WriteLine("----");
             Console.ReadLine();
@@ -56,6 +58,18 @@ class Program
         return (from i in ParallelEnumerable.Range(0, num_steps)
                 let x = (i + 0.5) * step
                 select 4.0 / (1.0 + x * x)).Sum() * step;
+    }
+
+    /// <summary>Returns the matching terms in two lists with PLINQ execution.</summary>
+    static double ParrallelList()
+    {
+        var my = Enumerable.Range(1, 2000000000);
+
+        List<int> p = new List<int>() { 9, 999, 99999, 999999 };
+
+        return (from i in my.AsParallel<int>()
+                where p.Contains(i)
+                select i).Count(); 
     }
 
     /// <summary>Estimates the value of PI using a for loop.</summary>
