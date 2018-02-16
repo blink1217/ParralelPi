@@ -22,12 +22,13 @@ class Program
     {
         while (true)
         {
-            Time(() => SerialLinqPi());
-            Time(() => ParallelLinqPi());
-            Time(() => SerialPi());
-            Time(() => ParallelPi());
-            Time(() => ParallelPartitionerPi());
-            Time(() => ParrallelList());
+            //Time(() => SerialLinqPi());
+            //Time(() => ParallelLinqPi());
+            //Time(() => SerialPi());
+            //Time(() => ParallelPi());
+            //Time(() => ParallelPartitionerPi());
+            //Time(() => ParrallelList());
+            Time(() => ParallelLoop());
 
             Console.WriteLine("----");
             Console.ReadLine();
@@ -97,6 +98,36 @@ class Program
             return local + 4.0 / (1.0 + x * x);
         }, local => { lock (monitor) sum += local; });
         return step * sum;
+    }
+    /// <summary>
+    /// https://msdn.microsoft.com/en-us/library/dd460721(v=vs.110).aspx
+    /// Loops through the list really fast done in 5 seconds!!! Good one...
+    /// </summary>
+    /// <returns></returns>
+    static double ParallelLoop()
+    {
+        var my = Enumerable.Range(1, 200000000).ToList();
+        List<int> p = new List<int>() { 9, 999, 99999, 999999 , 99999999, 199999900 };
+
+        ConcurrentStack<double> results = new ConcurrentStack<double>();
+
+        Parallel.For(0, my.Count(), (i, loopState) =>
+        {    
+            if (results.Count() < p.Count())
+            {
+                if( p.Contains(my[i]))
+                {
+                    results.Push(my[i]);
+                    Console.WriteLine(my[i]);
+                }
+            }
+            else
+            {
+                loopState.Stop();
+                return;
+            }
+         });
+        return results.Count();
     }
 
     /// <summary>Estimates the value of PI using a Parallel.ForEach and a range partitioner.</summary>
